@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">kikekou</string>
+    <string name="generate">generate QRcode</string>
+    <string name="share">share QRcode</string>
 </resources>
