@@ -52,6 +52,10 @@ class MainActivity : AppCompatActivity() {
             qrCodeView.setImageBitmap(bitmap)
 
             try {
+                //in your android manifest
+                //<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+                //to access media storage for android <10
+
                 val values = ContentValues()
                 values.put(MediaStore.MediaColumns.DISPLAY_NAME, QR_CODE_FILE_NAME)
                 values.put(MediaStore.MediaColumns.MIME_TYPE, "image/png")
