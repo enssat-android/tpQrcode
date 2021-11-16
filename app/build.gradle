@@ -4,17 +4,15 @@ plugins {
 }
 
 android {
-    compileSdk 31
+    compileSdk build_versions.compil_sdk
 
     defaultConfig {
-        applicationId "fr.enssat.kikekou"
-        minSdk 23
-        targetSdk 31
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
+        applicationId build_versions.app_id
+        minSdk build_versions.min_sdk
+        targetSdk build_versions.target_sdk
+        versionCode build_versions.version_code
+        versionName build_versions.version_name
+   }
 
     buildTypes {
         release {
@@ -23,22 +21,29 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility build_versions.java_version
+        targetCompatibility build_versions.java_version
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = build_versions.jvm
     }
 }
 
 dependencies {
-    implementation 'androidx.core:core-ktx:1.3.2'
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'com.google.android.material:material:1.3.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+    implementation deps.qrgen
 
-    implementation 'com.github.kenglxn.QRGen:android:2.6.0'
+    implementation deps.camera
+    implementation deps.camera_lifecycle
+    implementation deps.camera_view
+
+    implementation deps.support.core_ktx
+    implementation deps.support.app_compat
+    implementation deps.support.design
+
+    implementation deps.constraint_layout
+
+    testImplementation deps.junit
+
+    androidTestImplementation deps.test.ext_junit
+    androidTestImplementation deps.espresso.core
 }
