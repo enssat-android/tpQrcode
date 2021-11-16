@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         var qrCodeView =
             this.findViewById(R.id.qr_code_view) as androidx.appcompat.widget.AppCompatImageView
         var json = " { id: string\n" +
-                "  name: string\n" +
+                " name: string\n" +
                 " photo: Url?\n" +
                 " contact: [ \n" +
                 "     { key:  \"email\" , value : string },\n" +
