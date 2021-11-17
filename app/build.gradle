@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -12,7 +13,7 @@ android {
         targetSdk build_versions.target_sdk
         versionCode build_versions.version_code
         versionName build_versions.version_name
-   }
+    }
 
     buildTypes {
         release {
@@ -20,12 +21,26 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
     compileOptions {
         sourceCompatibility build_versions.java_version
         targetCompatibility build_versions.java_version
     }
+
     kotlinOptions {
         jvmTarget = build_versions.jvm
+    }
+
+    aaptOptions {
+        noCompress "tflite" // To avoid ML model compression
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    dataBinding {
+        enabled = true // To enable data binding
     }
 }
 
@@ -36,14 +51,25 @@ dependencies {
     implementation deps.camera_lifecycle
     implementation deps.camera_view
 
+    implementation deps.mlkit
+
     implementation deps.support.core_ktx
     implementation deps.support.app_compat
     implementation deps.support.design
 
     implementation deps.constraint_layout
 
-    testImplementation deps.junit
 
+    implementation deps.camera_core
+    implementation 'androidx.window:window:1.0.0-alpha09'
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
+
+    // Kotlin lang
+    implementation 'androidx.core:core-ktx:1.5.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0"
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+
+    testImplementation deps.junit
     androidTestImplementation deps.test.ext_junit
     androidTestImplementation deps.espresso.core
 }
