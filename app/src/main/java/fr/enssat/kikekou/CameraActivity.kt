@@ -96,7 +96,7 @@ class CameraActivity : AppCompatActivity() {
 
         val barcodeScanner: BarcodeScanner = BarcodeScanning.getClient(
             BarcodeScannerOptions.Builder()
-                .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
+                .setBarcodeFormats(Barcode.FORMAT_ALL_FORMATS)
                .build()
         )
 
@@ -124,7 +124,7 @@ class CameraActivity : AppCompatActivity() {
                     val image = imageProxy.image
                     if(image != null) {
                         val processImage = InputImage.fromMediaImage(image, rotationDegrees)
-                        objectDetector.process(processImage)
+                        /*objectDetector.process(processImage)
                             .addOnFailureListener {
                                 Log.e("CameraActivity","Error: $it.message")
                                 imageProxy.close()
@@ -137,18 +137,35 @@ class CameraActivity : AppCompatActivity() {
                                     binding.layout.addView(element,1)
                                 }
                                 imageProxy.close()
-                            }
+                            }*/
 
                         //See https://developers.google.com/ml-kit/vision/barcode-scanning/android
-                        /*barcodeScanner.process(processImage).addOnFailureListener {
+                        barcodeScanner.process(processImage).addOnFailureListener {
                             Log.e("ScannerActivity", "Error: $it.message")
                             imageProxy.close()
                         }.addOnSuccessListener { barcodes ->
                             for (it in barcodes) {
-                              ...
+                                val bounds = it.boundingBox
+                                val corners = it.cornerPoints
+
+                                val rawValue = it.rawValue
+
+                                val valueType = it.valueType
+                                // See API reference for complete list of supported types
+                                when (valueType) {
+                                    Barcode.TYPE_WIFI -> {
+                                        val ssid = it.wifi!!.ssid
+                                        val password = it.wifi!!.password
+                                        val type = it.wifi!!.encryptionType
+                                    }
+                                    Barcode.TYPE_URL -> {
+                                        val title = it.url!!.title
+                                        val url = it.url!!.url
+                                    }
+                                }
                             }
                             imageProxy.close()
-                        }*/
+                        }
                     }
                 })
 
