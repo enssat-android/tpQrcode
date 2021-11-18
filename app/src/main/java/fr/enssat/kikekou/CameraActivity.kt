@@ -16,6 +16,9 @@ import androidx.core.content.ContextCompat
 import androidx.lifecycle.LifecycleOwner
 import com.google.common.util.concurrent.ListenableFuture
 import com.google.mlkit.common.model.LocalModel
+import com.google.mlkit.vision.barcode.Barcode
+import com.google.mlkit.vision.barcode.BarcodeScanner
+import com.google.mlkit.vision.barcode.BarcodeScanning
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.objects.ObjectDetection
 import com.google.mlkit.vision.objects.ObjectDetector
@@ -23,6 +26,10 @@ import com.google.mlkit.vision.objects.custom.CustomObjectDetectorOptions
 
 //Naming convention: camera_layout.xml layout -> CameraLayoutBinding
 import fr.enssat.kikekou.databinding.CameraLayoutBinding
+import com.google.mlkit.vision.barcode.BarcodeScannerOptions
+
+
+
 
 class CameraActivity : AppCompatActivity() {
     private val REQUEST_CODE = 123456
@@ -87,6 +94,11 @@ class CameraActivity : AppCompatActivity() {
                 .build()
         objectDetector = ObjectDetection.getClient(customObjectDetectorOptions)
 
+        val barcodeScanner: BarcodeScanner = BarcodeScanning.getClient(
+            BarcodeScannerOptions.Builder()
+                .setBarcodeFormats(Barcode.FORMAT_QR_CODE)
+               .build()
+        )
 
         // future do not block
         // get() is used to get the instance of the future when available
@@ -126,6 +138,17 @@ class CameraActivity : AppCompatActivity() {
                                 }
                                 imageProxy.close()
                             }
+
+                        //See https://developers.google.com/ml-kit/vision/barcode-scanning/android
+                        /*barcodeScanner.process(processImage).addOnFailureListener {
+                            Log.e("ScannerActivity", "Error: $it.message")
+                            imageProxy.close()
+                        }.addOnSuccessListener { barcodes ->
+                            for (it in barcodes) {
+                              ...
+                            }
+                            imageProxy.close()
+                        }*/
                     }
                 })
 

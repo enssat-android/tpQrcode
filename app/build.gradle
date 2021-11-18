@@ -59,15 +59,16 @@ dependencies {
 
     implementation deps.constraint_layout
 
+    implementation deps.barcode
 
     implementation deps.camera_core
-    implementation 'androidx.window:window:1.0.0-alpha09'
-    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.1'
 
-    // Kotlin lang
-    implementation 'androidx.core:core-ktx:1.5.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.0"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.0'
+    implementation deps.window
+    implementation deps.lifecycle
+    implementation deps.core
+
+    implementation deps.kotlin.lib
+    implementation deps.kotlin.coroutine
 
     testImplementation deps.junit
     androidTestImplementation deps.test.ext_junit
