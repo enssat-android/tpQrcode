@@ -140,29 +140,14 @@ class CameraActivity : AppCompatActivity() {
                             }*/
 
                         //See https://developers.google.com/ml-kit/vision/barcode-scanning/android
+                        //See https://github.com/googlesamples/mlkit/blob/2f80c301bae79136efa9096881b6e44bee7866a3/android/android-snippets/app/src/main/java/com/google/example/mlkit/kotlin/BarcodeScanningActivity.kt#L44-L75
                         barcodeScanner.process(processImage).addOnFailureListener {
                             Log.e("ScannerActivity", "Error: $it.message")
                             imageProxy.close()
                         }.addOnSuccessListener { barcodes ->
                             for (it in barcodes) {
-                                val bounds = it.boundingBox
-                                val corners = it.cornerPoints
-
                                 val rawValue = it.rawValue
-
-                                val valueType = it.valueType
-                                // See API reference for complete list of supported types
-                                when (valueType) {
-                                    Barcode.TYPE_WIFI -> {
-                                        val ssid = it.wifi!!.ssid
-                                        val password = it.wifi!!.password
-                                        val type = it.wifi!!.encryptionType
-                                    }
-                                    Barcode.TYPE_URL -> {
-                                        val title = it.url!!.title
-                                        val url = it.url!!.url
-                                    }
-                                }
+                                Toast.makeText(this, "found QrCode: $rawValue", Toast.LENGTH_LONG).show()
                             }
                             imageProxy.close()
                         }
