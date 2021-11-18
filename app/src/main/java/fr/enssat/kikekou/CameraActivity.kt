@@ -145,9 +145,16 @@ class CameraActivity : AppCompatActivity() {
                             Log.e("ScannerActivity", "Error: $it.message")
                             imageProxy.close()
                         }.addOnSuccessListener { barcodes ->
+                            var rawValue = ""
                             for (it in barcodes) {
-                                val rawValue = it.rawValue
-                                Toast.makeText(this, "found QrCode: $rawValue", Toast.LENGTH_LONG).show()
+                               if (!rawValue.equals(it.rawValue)) {
+                                    rawValue = it.rawValue
+                                    Toast.makeText(
+                                        this,
+                                        "found QrCode: $rawValue",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
                             }
                             imageProxy.close()
                         }
