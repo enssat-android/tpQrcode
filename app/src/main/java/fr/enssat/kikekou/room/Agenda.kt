@@ -4,10 +4,12 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.ColumnInfo
 import androidx.room.Embedded
+import com.squareup.moshi.JsonClass
 
 class Location(var day:Int, var place:String)
 class Contact(var mail:String, var tel:String?, var fb:String?)
 
+@JsonClass(generateAdapter = true)
 @Entity(tableName = "agenda_table")
 class Agenda(@ColumnInfo(name = "name") var name:String,
              @ColumnInfo(name = "week") var week:Int,
