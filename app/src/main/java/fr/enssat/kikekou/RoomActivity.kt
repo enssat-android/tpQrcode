@@ -10,6 +10,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import fr.enssat.kikekou.adapters.AgendaListAdapter
+import fr.enssat.kikekou.json.AgendaJsonParser
 import fr.enssat.kikekou.room.*
 import fr.enssat.kikekou.viewmodels.AgendaViewModel
 import fr.enssat.kikekou.viewmodels.AgendaViewModelFactory
@@ -41,10 +42,20 @@ class RoomActivity: AppCompatActivity() {
 
         val fab = findViewById<FloatingActionButton>(R.id.fab)
         fab.setOnClickListener { view: View? ->
-            val contact = Contact("gil.lebrun@orange.com",null, null)
-            val location = Location(4,"a l \'enssat")
-            val agenda = Agenda("gilles le brun", 47, location,contact)
-            _agendaViewModel.insertAgenda(agenda)
+            //val contact = Contact("gil.lebrun@orange.com",null, null)
+            //val location = Location(4,"a l \'enssat")
+            //val agenda = Agenda("gilles le brun", 47, location,contact)
+
+            var json =""
+            val agenda = AgendaJsonParser.parseAgenda(json)
+            agenda?.let{
+                _agendaViewModel.insertAgenda(it)
+            }
+
         }
+
+        var json =""
+
+
     }
 }
