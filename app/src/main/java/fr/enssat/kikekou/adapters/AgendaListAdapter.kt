@@ -17,7 +17,8 @@ class AgendaListAdapter(): ListAdapter<Agenda, AgendaViewHolder>(AgendaDiff()) {
 
         override fun onBindViewHolder(holder: AgendaViewHolder, position: Int) {
             val current: Agenda? = getItem(position)
-            holder.bind(current?.name + " / " + current?.contact?.mail)
+            val todisplay = current?.name + " / " + current?.contact?.mail + " / " + current?.loc?.get(0)?.day  + "-" + current?.loc?.get(0)?.place
+            holder.bind(todisplay)
         }
 
         internal class AgendaDiff : DiffUtil.ItemCallback<Agenda>() {
