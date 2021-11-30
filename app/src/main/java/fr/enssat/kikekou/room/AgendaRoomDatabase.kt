@@ -4,12 +4,14 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import androidx.sqlite.db.SupportSQLiteDatabase
+import fr.enssat.kikekou.json.ListLocationConverter
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+@TypeConverters(ListLocationConverter::class)
 @Database(entities = [Agenda::class], version = 1)
 abstract class AgendaRoomDatabase : RoomDatabase() {
 
@@ -55,13 +57,13 @@ abstract class AgendaRoomDatabase : RoomDatabase() {
             suspend fun populate(agendaDao: AgendaDao) {
                 agendaDao.deleteAll()
                var contact = Contact("guillaume.chatelet@orange.com", null, null)
-                var location = Location(2, "en TT")
-                var agenda = Agenda("guillaume chatelet", 47, location,contact)
+                var location = arrayListOf<Location>(Location(2, "en TT"),Location(5, "en TT"))
+                var agenda = Agenda("guillaume chatelet", 47,location, contact)
                 agendaDao.insert(agenda)
 
                 contact = Contact("pierre.crepieux@orange.com", null, null)
-                location = Location(3, "en TT")
-                agenda = Agenda("pierre crepieux",  47, location,contact)
+                location = arrayListOf<Location>(Location(3, "en TT"),Location(4, "en TT"))
+                agenda = Agenda("pierre crepieux",  47,location, contact)
                 agendaDao.insert(agenda)
              }
         }

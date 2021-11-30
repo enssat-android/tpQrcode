@@ -1,14 +1,18 @@
 package fr.enssat.kikekou.adapters
 
+import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
+import fr.enssat.kikekou.databinding.RecyclerviewItemBinding
 import fr.enssat.kikekou.room.Agenda
 
 class AgendaListAdapter(): ListAdapter<Agenda, AgendaViewHolder>(AgendaDiff()) {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AgendaViewHolder {
-            return AgendaViewHolder.create(parent)
+            val inflater = LayoutInflater.from(parent.context)
+            var binding = RecyclerviewItemBinding.inflate(inflater, parent, false)
+            return AgendaViewHolder.create(binding)
         }
 
         override fun onBindViewHolder(holder: AgendaViewHolder, position: Int) {

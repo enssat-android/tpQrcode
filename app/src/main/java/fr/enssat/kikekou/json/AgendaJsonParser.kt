@@ -8,12 +8,8 @@ class AgendaJsonParser {
 
     companion object {
         fun parseAgenda(json: String): Agenda? {
-            val moshi = Moshi.Builder()
-                .add(AgendaJsonAdapter())
-                .build()
-
+            val moshi = Moshi.Builder().build()
             val adapter: JsonAdapter<Agenda> = moshi.adapter(Agenda::class.java)
-
             return adapter.fromJson(json)
         }
     }

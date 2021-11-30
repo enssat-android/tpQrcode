@@ -1,28 +1,18 @@
 package fr.enssat.kikekou.adapters
 
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import fr.enssat.kikekou.R
+import fr.enssat.kikekou.databinding.RecyclerviewItemBinding
 
 
-class AgendaViewHolder private constructor(itemView: View):RecyclerView.ViewHolder(itemView) {
+class AgendaViewHolder private constructor(var binding:RecyclerviewItemBinding):RecyclerView.ViewHolder(binding.root) {
 
-    private lateinit var item: TextView
-
-    init {  item = itemView.findViewById(R.id.text)}
-
-    fun bind(text: String?) {
-        item.text = text
+    fun bind(value: String?) {
+        binding.agendaItem.text = value
     }
 
     companion object {
-        fun create(parent: ViewGroup): AgendaViewHolder {
-            val view: View = LayoutInflater.from(parent.context)
-                .inflate(R.layout.recyclerview_item, parent, false)
-            return AgendaViewHolder(view)
+        fun create(binding: RecyclerviewItemBinding): AgendaViewHolder {
+            return AgendaViewHolder(binding)
         }
     }
 }
